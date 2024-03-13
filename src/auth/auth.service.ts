@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UsersRepository } from 'src/users/users.repository';
+import { UsersRepository } from '../users/users.repository';
 
 @Injectable()
 export class AuthService {
@@ -8,12 +8,12 @@ export class AuthService {
     return 'This will return the auth';
   }
 
-  signIn(email: string, password: string) {
+  async signIn(email: string, password: string) {
     if (!email || !password) {
       return 'Email and password are required';
     }
 
-    const user = this.UsersRepository.getUserByEmail(email);
+    const user = await this.UsersRepository.getUserByEmail(email);
 
     if (!user) {
       return 'User not found';

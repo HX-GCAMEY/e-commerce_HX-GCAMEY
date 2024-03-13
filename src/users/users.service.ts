@@ -8,7 +8,7 @@ export class UsersService {
     return this.UsersRepository.getUsers(page, limit);
   }
 
-  getUser(id: number) {
+  getUser(id: string) {
     return this.UsersRepository.getUser(id);
   }
 
@@ -16,11 +16,11 @@ export class UsersService {
     return this.UsersRepository.addUser(user);
   }
 
-  updateUser(id: number, user: any) {
+  updateUser(id: string, user: any) {
     return this.UsersRepository.updateUser(id, user);
   }
 
-  deleteUser(id: number) {
+  deleteUser(id: string) {
     return this.UsersRepository.deleteUser(id);
   }
 }

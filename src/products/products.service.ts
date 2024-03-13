@@ -9,7 +9,7 @@ export class ProductsService {
     return this.ProductsRepository.getProducts(page, limit);
   }
 
-  getProduct(id: number) {
+  getProduct(id: string) {
     return this.ProductsRepository.getProduct(id);
   }
 
@@ -17,7 +17,7 @@ export class ProductsService {
     return this.ProductsRepository.addProduct(product);
   }
 
-  updateProduct(id: number, product: any) {
+  updateProduct(id: string, product: any) {
     return this.ProductsRepository.updateProduct(id, product);
   }
 }
