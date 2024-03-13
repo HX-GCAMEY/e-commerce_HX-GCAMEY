@@ -23,7 +23,7 @@ export class ProductsController {
   }
 
   @Get(':id')
-  getProduct(@Param('id') id: number) {
+  getProduct(@Param('id') id: string) {
     return this.productsService.getProduct(id);
   }
 
@@ -35,7 +35,7 @@ export class ProductsController {
 
   @Put(':id')
   @UseGuards(AuthGuard)
-  updateProduct(@Query('id') id: number, @Body() product: any) {
+  updateProduct(@Query('id') id: string, @Body() product: any) {
     return this.productsService.updateProduct(id, product);
   }
 }
