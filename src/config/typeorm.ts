@@ -1,7 +1,6 @@
 import { registerAs } from '@nestjs/config';
 import { config as dotenvConfig } from 'dotenv';
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { BadRequestException } from '@nestjs/common';
 
 dotenvConfig({ path: '.development.env' });
 

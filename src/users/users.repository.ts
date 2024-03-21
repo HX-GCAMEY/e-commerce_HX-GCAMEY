@@ -21,7 +21,12 @@ export class UsersRepository {
   }
 
   async getUser(id: string) {
-    const user = await this.usersRepository.findOneBy({ id });
+    const user = await this.usersRepository.findOne({
+      where: { id },
+      relations: {
+        orders: true,
+      },
+    });
 
     if (!user) {
       return 'User not found';
