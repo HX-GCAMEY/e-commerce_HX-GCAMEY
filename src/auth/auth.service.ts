@@ -1,6 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { UsersRepository } from '../users/users.repository';
-
 @Injectable()
 export class AuthService {
   constructor(private UsersRepository: UsersRepository) {}
@@ -10,18 +13,18 @@ export class AuthService {
 
   async signIn(email: string, password: string) {
     if (!email || !password) {
-      return 'Email and password are required';
+      throw new BadRequestException('Email and password are required');
     }
 
     const user = await this.UsersRepository.getUserByEmail(email);
 
     if (!user) {
-      return 'User not found';
+      throw new NotFoundException('User not found');
     }
 
     if (user.password === password) {
       return 'Logged in';
     }
-    return 'Invalid credentials';
+    throw new BadRequestException('Invalid credentials');
   }
 }

@@ -9,9 +9,11 @@ import {
   Delete,
   HttpCode,
   UseGuards,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { AuthGuard } from '../auth/guards/auth/auth.guard';
+import { CreateUserDto } from 'src/dtos/users.dto';
 
 @Controller('users')
 export class UsersController {
@@ -28,24 +30,24 @@ export class UsersController {
 
   @Get(':id')
   @UseGuards(AuthGuard)
-  getUser(@Param('id') id: string) {
+  getUser(@Param('id', ParseUUIDPipe) id: string) {
     return this.usersService.getUser(id);
   }
 
   @Post()
-  addUser(@Body() user: any) {
+  addUser(@Body() user: CreateUserDto) {
     return this.usersService.addUser(user);
   }
 
   @Put(':id')
   @UseGuards(AuthGuard)
-  updateUser(@Param('id') id: string, @Body() user: any) {
+  updateUser(@Param('id', ParseUUIDPipe) id: string, @Body() user: any) {
     return this.usersService.updateUser(id, user);
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard)
-  deleteUser(@Param('id') id: string) {
+  deleteUser(@Param('id', ParseUUIDPipe) id: string) {
     return this.usersService.deleteUser(id);
   }
 }
