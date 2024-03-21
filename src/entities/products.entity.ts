@@ -41,10 +41,10 @@ export class Products {
   price: number;
 
   @Column({
-    type: 'boolean',
-    default: true,
+    type: 'int',
+    nullable: false,
   })
-  stock: boolean;
+  stock: number;
 
   @Column({
     type: 'text',

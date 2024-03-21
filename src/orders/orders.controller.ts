@@ -7,8 +7,8 @@ export class OrdersController {
 
   @Post()
   addOrder(@Body() order: any) {
-    const { userId, products, price } = order;
-    return this.ordersService.addOrder(userId, products, price);
+    const { userId, products } = order;
+    return this.ordersService.addOrder(userId, products);
   }
 
   @Get(':id')

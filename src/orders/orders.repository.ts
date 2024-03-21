@@ -19,7 +19,8 @@ export class OrdersRepository {
     private productsRepository: Repository<Products>,
   ) {}
 
-  async addOrder(userId: string, products: any, price: number) {
+  async addOrder(userId: string, products: any) {
+    let total = 0;
     const user = await this.usersRepository.findOneBy({ id: userId });
 
     if (!user) {
@@ -34,13 +35,30 @@ export class OrdersRepository {
 
     const productsArray = await Promise.all(
       products.map(async (element) => {
-        return await this.productsRepository.findOneBy({ id: element.id });
+        const product = await this.productsRepository.findOneBy({
+          id: element.id,
+        });
+
+        if (!product) {
+          return 'Product not found';
+        }
+
+        total += Number(product.price);
+
+        await this.productsRepository.update(
+          { id: element.id },
+          { stock: product.stock - 1 },
+        );
+
+        console.log(product.price);
+        console.log();
+        return product;
       }),
     );
 
     const orderDetail = new OrderDetails();
 
-    orderDetail.price = price;
+    orderDetail.price = Number(Number(total).toFixed(2));
     orderDetail.products = productsArray;
     orderDetail.order = newOrder;
 
