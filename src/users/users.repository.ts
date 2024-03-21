@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Users } from '../entities/users.entity';
 import { Repository } from 'typeorm';
@@ -29,7 +29,7 @@ export class UsersRepository {
     });
 
     if (!user) {
-      return 'User not found';
+      throw new NotFoundException('User not found');
     }
 
     const { password, ...userWithoutPassword } = user;
@@ -37,7 +37,7 @@ export class UsersRepository {
     return userWithoutPassword;
   }
 
-  async addUser(user: Users): Promise<Partial<Users>> {
+  async addUser(user: Partial<Users>): Promise<Partial<Users>> {
     const newUser = await this.usersRepository.save(user);
 
     const { password, ...userWithoutPassword } = newUser;
@@ -45,7 +45,7 @@ export class UsersRepository {
     return userWithoutPassword;
   }
 
-  async updateUser(id: string, user: Users) {
+  async updateUser(id: string, user: Partial<Users>) {
     await this.usersRepository.update(id, user);
 
     const updatedUser = await this.usersRepository.findOneBy({ id });
@@ -57,6 +57,10 @@ export class UsersRepository {
 
   async deleteUser(id: string): Promise<Partial<Users>> {
     const user = await this.usersRepository.findOneBy({ id });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
 
     this.usersRepository.remove(user);
 
