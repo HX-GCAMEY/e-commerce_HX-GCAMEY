@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  JoinColumn,
+} from 'typeorm';
+import { Orders } from './orders.entity';
 
 @Entity({
   name: 'USERS',
@@ -50,4 +57,8 @@ export class Users {
     length: 50,
   })
   city: string;
+
+  @OneToMany(() => Orders, (order) => order.user)
+  @JoinColumn({ name: 'orders_id' })
+  orders: Orders[];
 }

@@ -22,15 +22,14 @@ export class ProductsController {
     return this.productsService.getProducts(1, 2);
   }
 
+  @Get('seeder')
+  addProducts() {
+    return this.productsService.addProducts();
+  }
+
   @Get(':id')
   getProduct(@Param('id') id: string) {
     return this.productsService.getProduct(id);
-  }
-
-  @Post()
-  @UseGuards(AuthGuard)
-  addProduct(@Body() product: any) {
-    return this.productsService.addProduct(product);
   }
 
   @Put(':id')
