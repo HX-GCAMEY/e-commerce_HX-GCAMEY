@@ -48,7 +48,7 @@ export class Products {
 
   @Column({
     type: 'text',
-    nullable: false,
+    default: 'https://assets.soyhenry.com/LOGO-REDES-01_og.jpg',
   })
   imgUrl: string;
 

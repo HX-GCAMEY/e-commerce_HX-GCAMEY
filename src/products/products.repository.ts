@@ -15,18 +15,20 @@ export class ProductsRepository {
   ) {}
 
   async getProducts(page: number, limit: number): Promise<Products[]> {
-    let products = await this.productsRepository.find({
+    const products = await this.productsRepository.find({
       relations: {
         category: true,
       },
     });
 
+    let inStock = products.filter((product) => product.stock > 0);
+
     const start = (page - 1) * limit;
     const end = start + +limit;
 
-    products = products.slice(start, end);
+    inStock = inStock.slice(start, end);
 
-    return products;
+    return inStock;
   }
 
   getProduct(id: string) {
@@ -51,7 +53,6 @@ export class ProductsRepository {
       product.name = element.name;
       product.description = element.description;
       product.price = element.price;
-      product.imgUrl = element.imgUrl;
       product.stock = element.stock;
       product.category = category;
 
@@ -60,7 +61,7 @@ export class ProductsRepository {
         .insert()
         .into(Products)
         .values(product)
-        .orUpdate(['description', 'price', 'imgUrl', 'stock'], ['name'])
+        .orUpdate(['description', 'price', 'stock'], ['name'])
         .execute();
     });
 
