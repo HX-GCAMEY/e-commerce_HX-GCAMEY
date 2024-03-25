@@ -56,6 +56,7 @@ export class UsersRepository {
   }
 
   async deleteUser(id: string): Promise<Partial<Users>> {
+    console.log('Si llego aca');
     const user = await this.usersRepository.findOneBy({ id });
 
     if (!user) {

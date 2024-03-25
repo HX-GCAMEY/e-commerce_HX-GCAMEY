@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Products } from '../entities/products.entity';
 import { Repository } from 'typeorm';
-import { Categories } from 'src/entities/categories.entity';
+import { Categories } from '../entities/categories.entity';
 import * as data from '../data.json';
 
 @Injectable()
@@ -31,11 +31,11 @@ export class ProductsRepository {
     return inStock;
   }
 
-  getProduct(id: string) {
-    const product = this.productsRepository.findOneBy({ id });
+  async getProduct(id: string) {
+    const product = await this.productsRepository.findOneBy({ id });
 
     if (!product) {
-      return 'Product not found';
+      throw new NotFoundException('Product not found');
     }
 
     return product;
