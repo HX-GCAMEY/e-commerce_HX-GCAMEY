@@ -4,8 +4,8 @@ import { ProductsService } from './products.service';
 import { ProductsRepository } from './products.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Products } from '../entities/products.entity';
-import { Categories } from 'src/entities/categories.entity';
-import { CategoriesRepository } from 'src/categories/categories.repository';
+import { Categories } from '../entities/categories.entity';
+import { CategoriesRepository } from '../categories/categories.repository';
 
 @Module({
   imports: [

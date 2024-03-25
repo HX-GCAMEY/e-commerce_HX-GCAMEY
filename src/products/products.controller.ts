@@ -10,10 +10,10 @@ import {
   ParseUUIDPipe,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
-import { AuthGuard } from 'src/auth/guards/auth/auth.guard';
-import { Roles } from 'src/decorators/roles.decorator';
-import { Role } from 'src/roles.enum';
-import { RolesGuard } from 'src/auth/guards/roles/roles.guard';
+import { AuthGuard } from '../auth/guards/auth/auth.guard';
+import { Roles } from '../decorators/roles.decorator';
+import { Role } from '../roles.enum';
+import { RolesGuard } from '../auth/guards/roles/roles.guard';
 
 @Controller('products')
 export class ProductsController {

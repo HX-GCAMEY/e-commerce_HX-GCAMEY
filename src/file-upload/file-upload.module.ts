@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { FileUploadController } from './file-upload.controller';
 import { FileUploadService } from './file-upload.service';
-import { CloudinaryConfig } from 'src/config/cloudinary';
+import { CloudinaryConfig } from '../config/cloudinary';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Products } from 'src/entities/products.entity';
+import { Products } from '../entities/products.entity';
 import { FileUploadRepository } from './file-upload.repository';
 
 @Module({

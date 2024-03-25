@@ -10,7 +10,7 @@ import {
   IsEmpty,
 } from 'class-validator';
 import { PickType } from '@nestjs/swagger';
-import { MatchPassword } from 'src/decorators/matchPassword.decorator';
+import { MatchPassword } from '../decorators/matchPassword.decorator';
 export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
