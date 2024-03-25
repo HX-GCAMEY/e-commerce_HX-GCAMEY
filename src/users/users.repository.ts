@@ -32,7 +32,7 @@ export class UsersRepository {
       throw new NotFoundException('User not found');
     }
 
-    const { password, ...userWithoutPassword } = user;
+    const { password, isAdmin, ...userWithoutPassword } = user;
 
     return userWithoutPassword;
   }
@@ -40,7 +40,7 @@ export class UsersRepository {
   async addUser(user: Partial<Users>): Promise<Partial<Users>> {
     const newUser = await this.usersRepository.save(user);
 
-    const { password, ...userWithoutPassword } = newUser;
+    const { password, isAdmin, ...userWithoutPassword } = newUser;
 
     return userWithoutPassword;
   }
@@ -50,7 +50,7 @@ export class UsersRepository {
 
     const updatedUser = await this.usersRepository.findOneBy({ id });
 
-    const { password, ...userWithoutPassword } = updatedUser;
+    const { password, isAdmin, ...userWithoutPassword } = updatedUser;
 
     return userWithoutPassword;
   }
@@ -64,7 +64,7 @@ export class UsersRepository {
 
     this.usersRepository.remove(user);
 
-    const { password, ...userWithoutPassword } = user;
+    const { password, isAdmin, ...userWithoutPassword } = user;
 
     return userWithoutPassword;
   }

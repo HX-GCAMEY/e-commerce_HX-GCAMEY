@@ -11,6 +11,9 @@ import {
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { AuthGuard } from 'src/auth/guards/auth/auth.guard';
+import { Roles } from 'src/decorators/roles.decorator';
+import { Role } from 'src/roles.enum';
+import { RolesGuard } from 'src/auth/guards/roles/roles.guard';
 
 @Controller('products')
 export class ProductsController {
@@ -34,7 +37,8 @@ export class ProductsController {
   }
 
   @Put(':id')
-  @UseGuards(AuthGuard)
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
   updateProduct(@Query('id', ParseUUIDPipe) id: string, @Body() product: any) {
     return this.productsService.updateProduct(id, product);
   }
