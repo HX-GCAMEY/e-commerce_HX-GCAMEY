@@ -57,6 +57,12 @@ export class Users {
   })
   city: string;
 
+  @Column({
+    type: 'boolean',
+    default: false,
+  })
+  isAdmin: boolean;
+
   @OneToMany(() => Orders, (order) => order.user)
   @JoinColumn({ name: 'orders_id' })
   orders: Orders[];
